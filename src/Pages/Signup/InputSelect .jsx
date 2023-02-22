@@ -29,7 +29,7 @@ const Input = styled.input`
   border: 1px solid #ccc;
 `;
 
-const InputSelect = () => {
+const InputSelect = (props) => {
   return (
     <>
       <Label>Phone</Label>
@@ -39,7 +39,12 @@ const InputSelect = () => {
           <option value="PS">PS +972</option>
           <option value="TR">TR +976</option>
         </Select>
-        <Input placeholder="00-000-00-00" />
+        <Input placeholder="00-000-00-00"
+          id={props.id}
+          type= "text"
+          value={props.value}
+          onChange={props.onChange}
+          />
       </InputContainer>
     </>
   );

@@ -20,6 +20,7 @@ const InputCheckbox = (props) => {
         type={props.type}
         onChange={props.onChange}
         name={props.name}
+        checked={props.checked}
       />
       <Label htmlFor={props.id} style={{ fontWeight: props.fw }}>
         {props.labelText}
