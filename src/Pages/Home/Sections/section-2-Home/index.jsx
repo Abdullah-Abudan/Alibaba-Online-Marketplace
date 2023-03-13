@@ -40,6 +40,7 @@ const DivCardContainer = styled(Div1Container)`
   padding: 20px;
   flex-grow: 1;
   border-left: 2px solid ${(props) => props.theme.colors.secondary[200]};
+  height: fit-content;
   @media (max-width: 992px) {
     margin: auto;
     border: 0;

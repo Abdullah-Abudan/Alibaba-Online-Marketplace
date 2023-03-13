@@ -137,6 +137,14 @@ export const ButtonHome = styled(Link)`
         : props.theme.colors.primary[600]};
   }
 `;
+ const ButtonLogout = styled(ButtonHome)`
+  background-color: ${(props) => props.theme.colors.dark};
+  margin: ${(props) => (props.NoMargin ? "" : "10px 0")};
+
+  &:hover {
+    background-color: ${(props) => props.theme.colors.danger[500]};
+  }
+`;
 
 const Section1H = (props) => {
   return (
@@ -194,6 +202,11 @@ const Section1H = (props) => {
             <ButtonHome white NoMargin={props.NoMargin}>
               Log in
             </ButtonHome>
+            <ButtonLogout
+              onClick={props.onLogout}
+            >
+              Log out
+            </ButtonLogout>
           </Div1Container>
           <Div2Container>
             <PHome>

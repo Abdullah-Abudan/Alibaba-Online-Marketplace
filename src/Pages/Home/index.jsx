@@ -19,7 +19,7 @@ function Home() {
         <Header />
       </Container>
       <Background secondary>
-        <Section1H />
+        <Section1H onLogout />
         <Section2H />
         <Section3H />
         <Section4H />

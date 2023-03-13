@@ -108,7 +108,7 @@ const NotFound = () => {
       </ErrorSVGContainer>
 
       <Heading>Sorry, The page you’re looking for doesn’t exist.</Heading>
-      <Btn to="/">
+      <Btn to="/Login">
         <Arrow>
           <ArrowSVG>
             <path

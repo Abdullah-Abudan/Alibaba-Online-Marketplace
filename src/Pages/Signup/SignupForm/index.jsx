@@ -12,10 +12,12 @@ import { Line } from "../../../Component/Or";
 import { StyledRegister } from "../../../Component/SwapLogReg";
 import { object, string, ref, boolean } from "yup"; // {object, string, ref} instead of (* as yup)
 import Error from "../../../Component/Error";
+import { useNavigate } from "react-router-dom";
 
 // img
 import eye from "../../../Images/eyeLogin.svg";
 import eyehide from "../../../Images/eyehide.svg";
+import axios from "axios";
 
 function SignupForm() {
   const [name, setName] = useState("");
@@ -33,6 +35,9 @@ function SignupForm() {
   const [passwordError, setPasswordError] = useState("");
   const [rePasswordError, setRePasswordError] = useState("");
   const [checkedError, setCheckedError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleInputChange = (event) => {
     const { value, id } = event.target;
@@ -85,6 +90,8 @@ function SignupForm() {
 
   const handleSubmit = (event) => {
     event.preventDefault(); //no refresh
+    setIsLoading(true);
+
     schema
       .validate(
         {
@@ -99,8 +106,18 @@ function SignupForm() {
         { abortEarly: false }
       )
       .then(() => {
-        console.log("Success");
-      })
+        axios
+        .post("https://react-tt-api.onrender.com/api/users/signup", {name,email,password,})
+        .then((res) => {
+          const token = res.data.token;
+          localStorage.setItem("token", token);
+          localStorage.setItem("email", res.data.email);
+          localStorage.setItem("name", res.data.name);
+          navigate("/Login" ) ; // Redirect to the Login page
+          setIsLoading(false);
+        })
+        }
+          )
       .catch((err) => {
         err.inner.forEach((e) => {
           if (e.path === "name") setNameError(e.message);
@@ -187,7 +204,7 @@ function SignupForm() {
         />
         {rePasswordError && <Error message={rePasswordError} />}
 
-        <Button width="100%">Register Now</Button>
+        <Button width="100%">{isLoading ? "Loading..." : "Register Now"}</Button>
         <InputCheckbox
           id="checkbox"
           type="checkbox"

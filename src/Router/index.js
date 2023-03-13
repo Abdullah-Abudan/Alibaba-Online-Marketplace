@@ -26,25 +26,58 @@ export const Paths = {
 };
 
 const Router = () => {
-  const [isLoggedIn, setisLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+    localStorage.setItem('isLoggedIn', true);
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    localStorage.removeItem('isLoggedIn');
+  };
 
   return (
     <Routes>
-      <Route index element={<Login />} />
+      <Route
+        index
+        element={<Login onLogin={handleLogin} isLoggedIn={isLoggedIn} />}
+      />
       <Route path={Paths.Login} element={<Login />} />
       <Route path={Paths.Signup} element={<Signup />} />
       <Route
         path={Paths.Home}
         element={
           <Protected isLoggedIn={isLoggedIn}>
-            <Home /> 
+            <Home onLogout={handleLogout} /> 
           </Protected>
         }
       />
-      <Route path={Paths.List} element={<List />} />
-      <Route path={`${Paths.Product}`} element={<Product />} />
-      <Route path={`${Paths.Cart}`} element={<Cart />} />
+      <Route
+        path={Paths.List}
+        element={
+          <Protected isLoggedIn={isLoggedIn}>
+            <List />
+          </Protected>
+        }
+      />
+      <Route
+        path={`${Paths.Product}`}
+        element={
+          <Protected isLoggedIn={isLoggedIn}>
+            <Product />
+          </Protected>
+        }
+      />
+      <Route
+        path={`${Paths.Cart}`}
+        element={
+          <Protected isLoggedIn={isLoggedIn}>
+            <Cart />
+          </Protected>
+        }
+      />
       <Route path="*" element={<NotFound />} />
       {/* I haven't created pages for them (not required in this project) */}
       <Route path={`${Paths.Profile}`} element={<NotFound />} />
